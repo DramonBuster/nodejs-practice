@@ -3,6 +3,8 @@ const { v4 } = require("uuid");
 
 const products = require("../../data/products");
 
+const productsOperations = require("../../methods");
+
 const productsRouter = express.Router();
 
 /*
@@ -17,13 +19,17 @@ const productsRouter = express.Router();
 
 //Всі товари Get /api/products
 productsRouter.get("/", async(req, res, next) => {
-    res.json({
-        status: "success",
-        code: 200,
-        data: {
-            result: products
-        }
-    })
+    // res.json({
+    //     status: "success",
+    //     code: 200,
+    //     data: {
+    //         result: products
+    //     }
+    // })
+
+    const products = await productsOperations.listAll();
+    res.json(products);
+    console.log(products);
 });
 
 //Один товар
